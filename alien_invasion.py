@@ -25,9 +25,9 @@ class AlienInvasion:
     def run_game(self):
         # Game Loop
         while self.running:
-            self._check_events(self)
+            self._check_events()
 
-            self._update_screen(self)
+            self._update_screen()
             self.clock.tick(self.settings.fps)
 
     def _check_events(self):
