@@ -37,4 +37,4 @@ class Settings:
         self.alien_file = (Path.cwd()/ "unit_11_alien_invasion_starter"/ "Assets"/ "images"/ "enemy_4.png")
         self.alien_w = 40
         self.alien_h = 40
-        self.fleet_speed = 5
+        self.alien_fleet_speed = 2
