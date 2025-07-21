@@ -3,16 +3,16 @@ from pygame.sprite import Sprite
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from alien_invasion import AlienInvasion
+    from alien_fleet import AlienFleet
 
 
 class Alien(Sprite):
-    def __init__(self, game: "AlienInvasion", x: float, y: float):
+    def __init__(self, fleet: "AlienFleet", x: float, y: float):
         super().__init__()
 
-        self.screen = game.screen
-        self.boundries  = game.screen.get_rect()
-        self.settings = game.settings
+        self.screen = fleet.game.screen
+        self.boundries  = fleet.game.screen.get_rect()
+        self.settings = fleet.settings
 
         self.image = pygame.image.load(self.settings.alien_file)
         self.image = pygame.transform.scale(
@@ -27,7 +27,7 @@ class Alien(Sprite):
         self.y = float(self.rect.y)
 
     def update(self):
-        temp_speed = self.settings.alien_fleet_speed
+        temp_speed = self.settings.fleet_speed
         if self.check_edges():
             self.settings.fleet_direction *= -1
             self.y += self.settings.fleet_drop_speed
