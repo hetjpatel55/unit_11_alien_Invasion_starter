@@ -26,6 +26,7 @@ class Settings:
         self.ship_w = 40
         self.ship_h = 60
         self.ship_speed = 5
+        self.starting_ship_amount = 3
 
         self.bullet_file = Path.cwd() / "unit_11_alien_invasion_starter" / "Assets" / "images" / "laserBlast.png"
         self.laser_sound = Path.cwd() / "unit_11_alien_invasion_starter" / "Assets" / "sound" / "laser.mp3"

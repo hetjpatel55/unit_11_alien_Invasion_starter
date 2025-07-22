@@ -26,7 +26,6 @@ class AlienFleet:
         )
 
         x_offset, y_offset = self.calculate_offsets(alien_w, alien_h, screen_w, fleet_w, fleet_h)
-        print(f'y offset: {y_offset}')
         self._create_rectangle_fleet(fleet_h, fleet_w, alien_w, x_offset, alien_h, y_offset)
     def calculate_fleet_size(self, alien_w, screen_w, alien_h, screen_h):
         fleet_w = screen_w // alien_w
@@ -93,7 +92,11 @@ class AlienFleet:
 
     def check_fleet_bottom(self):
         alien: Alien
+    
         for alien in self.fleet:
-            if alien.rect.bottom >= self.settings.screen_h:
+            if (alien.rect.bottom) >= self.settings.screen_h:
                 return True
             return False
+
+    def check_destroyed_status(self):
+        return not self.fleet
