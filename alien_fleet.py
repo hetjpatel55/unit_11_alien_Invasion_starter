@@ -25,7 +25,8 @@ class AlienFleet:
             alien_w, screen_w, alien_h, screen_h
         )
 
-        x_offset, y_offset = self.calculate_offsets(fleet_w, alien_w, fleet_h, alien_h, screen_w)
+        x_offset, y_offset = self.calculate_offsets(alien_w, alien_h, screen_w, fleet_w, fleet_h)
+        print(f'y offset: {y_offset}')
         self._create_rectangle_fleet(fleet_h, fleet_w, alien_w, x_offset, alien_h, y_offset)
     def calculate_fleet_size(self, alien_w, screen_w, alien_h, screen_h):
         fleet_w = screen_w // alien_w
@@ -79,10 +80,20 @@ class AlienFleet:
         self._check_fleet_edges()
         self.fleet.update()
 
-    def calculate_offsets(self, fleet_w, alien_w, fleet_h, alien_h, screen_w):
+    def calculate_offsets(self, alien_w, alien_h, screen_w, fleet_w, fleet_h):
         half_screen = self.settings.screen_h // 2
         fleet_horizontal_space = fleet_w * alien_w
         fleet_verticle_space = fleet_h * alien_h
         x_offset = int((screen_w - fleet_horizontal_space) // 2)
         y_offset = int((half_screen - fleet_verticle_space) // 2)
         return x_offset, y_offset
+
+    def check_collisions(self, other_group):
+        return pygame.sprite.groupcollide(self.fleet, other_group, True, True)
+
+    def check_fleet_bottom(self):
+        alien: Alien
+        for alien in self.fleet:
+            if alien.rect.bottom >= self.settings.screen_h:
+                return True
+            return False
