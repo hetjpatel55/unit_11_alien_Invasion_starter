@@ -3,7 +3,7 @@ import pygame
 from settings import Settings
 from ship import Ship
 from arsenal import Arsenal
-#from alien import Alien
+# from alien import Alien
 from alien_fleet import AlienFleet
 
 class AlienInvasion:
@@ -25,6 +25,8 @@ class AlienInvasion:
         pygame.mixer.init()
         self.laser_sound = pygame.mixer.Sound(self.settings.laser_sound)
         self.laser_sound.set_volume(0.8)
+        self.impact_sound = pygame.mixer.Sound(self.settings.impact_sound)
+        self.impact_sound.set_volume(0.8)
 
         self.ship = Ship(self, Arsenal(self))
         self.alien_fleet = AlienFleet(self)
@@ -36,8 +38,20 @@ class AlienInvasion:
             self._check_events()
             self.ship.update()
             self.alien_fleet.update_fleet()
+            self._check_collisions()
             self._update_screen()
             self.clock.tick(self.settings.fps)
+
+    def _check_collisions(self):
+        if self.ship.check_collisions(self.alien_fleet.fleet):
+            self._reset_level()
+
+        
+
+    def _reset_level(self):
+        self.ship.arsenal.arsenal.empty()
+        self.alien_fleet.fleet.empty()
+        self.alien_fleet.create_fleet()
 
     def _check_events(self):
         for event in pygame.event.get():
