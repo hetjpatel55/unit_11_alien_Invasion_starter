@@ -59,7 +59,7 @@ class AlienFleet:
             for col in range(fleet_w):
                 current_x = alien_w * col + x_offset
                 current_y = alien_h * row + y_offset
-                if col % 2 == 0 or row % 2 ==0:
+                if row != col :
                     continue
                 self._create_alien(current_x, current_y)
 
