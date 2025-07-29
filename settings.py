@@ -16,6 +16,16 @@ class Settings:
             / "Starbasesnow.png"
         )
         self.difficulty_scale = 1.1
+
+
+        self.scores_file = (Path.cwd()
+            / "unit_11_alien_invasion_starter"
+            / "Assets"
+            / "file"
+            / "scores.json"
+        )
+
+
         self.ship_file = (
             Path.cwd()
             / "unit_11_alien_invasion_starter"
@@ -55,6 +65,7 @@ class Settings:
 
         self.fleet_speed = 2
         self.fleet_drop_speed = 40
+        self.alien_points = 50
 
     def increase_difficulty(self):
         self.ship_speed *= self.difficulty_scale
