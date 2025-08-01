@@ -3,6 +3,12 @@ This module is the main file, all the other modules/classes
 have been imported to this file. This module gathers smaller
 classes and combines them to make a game.
 '''
+"""
+Name of Program: Alien Invasion
+Author: Het Patel
+Purpose: Lab 13 homework
+Date: 8/1/2025
+"""
 import sys
 import pygame
 from settings import Settings
