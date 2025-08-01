@@ -1,8 +1,20 @@
+'''
+This module is responsible to just keep all the data organized
+so that other classes can use them when needed
+'''
 from pathlib import Path
 
 
 class Settings:
+    '''
+    this class keeps all data, ones that will and some that
+    will not change, and stores the data, so that other
+    classes, and functions can use them when needed
+    '''
     def __init__(self):
+        '''
+        stores instance varibles
+        '''
         self.name = "Alien Invasion"
         self.screen_w = 1200
         self.screen_h = 800
@@ -37,8 +49,8 @@ class Settings:
         self.ship_h = 60
 
         self.bullet_file = Path.cwd() / "unit_11_alien_invasion_starter" / "Assets" / "images" / "laserBlast.png"
-        self.laser_sound = Path.cwd() / "unit_11_alien_invasion_starter" / "Assets" / "sound" / "laser.mp3"
-        self.impact_sound = (Path.cwd()/ "unit_11_alien_invasion_starter"/ "Assets"/ "sound"/ "impactSound.mp3"
+        self.laser_sound = Path.cwd() / "unit_11_alien_invasion_starter" / "Assets" / "sound" / "laser_sound.wav"
+        self.impact_sound = (Path.cwd()/ "unit_11_alien_invasion_starter"/ "Assets"/ "sound"/ "laser.mp3"
         )
         self.alien_file = (Path.cwd()/ "unit_11_alien_invasion_starter"/ "Assets"/ "images"/ "enemy_4.png")
         self.alien_w = 40
@@ -47,14 +59,19 @@ class Settings:
 
         self.button_w = 200
         self.button_h = 50
-        self.button_color = (0, 135, 50)
+        self.button_color = (61,23,242)
 
-        self.text_color = (255,255,255)
+        self.text_color = (0,0,0)
         self.button_font_size = 48
         self.HUD_font_size = 20
         self.font_file = Path.cwd()/ 'unit_11_alien_Invasion_starter'/ 'Assets' / 'Fonts' / 'Silkscreen' / 'Silkscreen-Bold.ttf'
 
     def initialize_dynamic_settings(self):
+        '''
+        stores varibles that will
+        be changed either in different
+        modules or in this one
+        '''
         self.ship_speed = 5
         self.starting_ship_amount = 3
 
@@ -68,6 +85,10 @@ class Settings:
         self.alien_points = 50
 
     def increase_difficulty(self):
+        '''
+        as the player clears out each level
+        this method makes the game harder
+        '''
         self.ship_speed *= self.difficulty_scale
         self.bullet_speed *= self.difficulty_scale
         self.fleet_speed *= self.difficulty_scale

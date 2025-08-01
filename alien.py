@@ -1,3 +1,7 @@
+'''
+This module makes one alien and holds all the data for the
+alien
+'''
 import pygame
 from pygame.sprite import Sprite
 from typing import TYPE_CHECKING
@@ -7,7 +11,14 @@ if TYPE_CHECKING:
 
 
 class Alien(Sprite):
+    '''
+    This class is responsible for drawing the alien, updating
+    the alien and checking if the alien has touched an edge
+    '''
     def __init__(self, fleet: "AlienFleet", x: float, y: float):
+        '''
+        stores instance varibles and stores some images
+        '''
         super().__init__()
         self.fleet = fleet
         self.screen = fleet.game.screen
@@ -26,10 +37,11 @@ class Alien(Sprite):
         self.y = float(self.rect.y)
 
     def update(self):
+        '''
+        sets some varibles that will be updated in the future
+        when the player does something.
+        '''
         temp_speed = self.settings.fleet_speed
-        #if self.check_edges():
-            #self.settings.fleet_direction *= -1
-            #self.y += self.settings.fleet_drop_speed
             
             
         self.x += temp_speed * self.fleet.fleet_direction
@@ -37,7 +49,13 @@ class Alien(Sprite):
         self.rect.y = self.y
 
     def check_edges(self):
+        '''
+        Checks if the fleet has touched an edge
+        '''
         return(self.rect.right >= self.boundries.right or self.rect.left <= self.boundries.left)
 
     def draw_alien(self):
+        '''
+        draws the alien
+        '''
         self.screen.blit(self.image, self.rect)

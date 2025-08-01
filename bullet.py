@@ -1,3 +1,7 @@
+'''
+This module is responsible for
+ making each bullet in the arsenal
+'''
 import pygame
 from pygame.sprite import Sprite
 from typing import TYPE_CHECKING
@@ -7,7 +11,14 @@ if TYPE_CHECKING:
 
 
 class Bullet(Sprite):
+    '''
+    This class draws and updates each bullet
+    '''
     def __init__(self, game: "AlienInvasion"):
+        '''
+        stores instance varibles that
+         the class might need later
+        '''
         super().__init__()
         self.screen = game.screen
         self.settings = game.settings
@@ -22,8 +33,14 @@ class Bullet(Sprite):
         self.y = float(self.rect.y)
 
     def update(self):
+        '''
+        updates the movement of the bullet
+        '''
         self.y -= self.settings.bullet_speed
         self.rect.y = self.y
 
     def draw_bullet(self):
+        '''
+        draws the bullet
+        '''
         self.screen.blit(self.image, self.rect)

@@ -1,3 +1,8 @@
+'''
+This module is the main file, all the other modules/classes
+have been imported to this file. This module gathers smaller
+classes and combines them to make a game.
+'''
 import sys
 import pygame
 from settings import Settings
@@ -11,7 +16,24 @@ from button import Button
 from hud import HUD
 
 class AlienInvasion:
+    '''
+    This is the main class. Every other class has been
+    imported into this class. This class constructs the game:
+    - First of all, this class has a method that runs the game.
+    - This class also plays sounds
+    - checks for collisions
+    - checks how many lifes the player has
+    - resets game and resets level
+    - displays the scores and lifes left
+    displays the play button
+    - checks what keys are being pressed
+    - updates screen
+    '''
     def __init__(self):
+        '''
+        Holds all the instance varibles and calls some methods
+        when an object of the class is made
+        '''
         pygame.init()
         self.settings = Settings()
         self.settings.initialize_dynamic_settings()
@@ -42,6 +64,9 @@ class AlienInvasion:
         self.game_active = False
 
     def run_game(self):
+        '''
+        runs the game as long as the player has lifes remaining
+        '''
         # Game Loop
         while self.running:
             if self.game_active:
@@ -54,6 +79,12 @@ class AlienInvasion:
             self.clock.tick(self.settings.fps)
 
     def _check_collisions(self):
+        '''
+        checks for collisions, if the alien hits the ship
+        or if the laser hits the alien. And if one or both
+        of them are true, then the method plays a sound
+        and destroys either the alien or the ship.
+        '''
         if self.ship.check_collisions(self.alien_fleet.fleet):
             self._check_game_status()
 
@@ -74,6 +105,12 @@ class AlienInvasion:
             self.HUD.update_level()
 
     def _check_game_status(self):
+        '''
+        checks if the player has any lifes left
+        and if the player is out of lifes, then
+        end the game. If the player loses a life, then 
+        this method is also responsible for resetting the fleet
+        '''
         if self.game_stats.ships_left > 0:
             self.game_stats.ships_left -= 1
             self._reset_level()
@@ -82,11 +119,17 @@ class AlienInvasion:
             self.game_active = False
 
     def _reset_level(self):
+        '''
+        resets level
+        '''
         self.ship.arsenal.arsenal.empty()
         self.alien_fleet.fleet.empty()
         self.alien_fleet.create_fleet()
 
     def restart_game(self):
+        '''
+        resets game
+        '''
         self.settings.initialize_dynamic_settings()
         self.game_stats.reset_stats()
         self.HUD.update_score ()
@@ -96,6 +139,10 @@ class AlienInvasion:
         pygame.mouse.set_visible(False)
 
     def _check_events(self):
+        '''
+        checks if the player has clicked
+        or pressed a key or button
+        '''
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
@@ -110,12 +157,18 @@ class AlienInvasion:
                 self._check_button_clicked()
 
     def _check_keyup_events(self, event):
+        '''
+        checks if the player has released a key or a button
+        '''
         if event.key == pygame.K_RIGHT:
             self.ship.moving_right = False
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = False
 
     def _check_keydown_events(self, event):
+        """
+        checks if the player has held down a key or a button
+        """
         if event.key == pygame.K_RIGHT:
             self.ship.moving_right = True
         elif event.key == pygame.K_LEFT:
@@ -131,6 +184,9 @@ class AlienInvasion:
             sys.exit()
 
     def _update_screen(self):
+        '''
+        updates screen
+        '''
         self.screen.blit(self.bg_file, (0, 0))
         self.ship.draw()
         self.alien_fleet.draw()
@@ -143,6 +199,9 @@ class AlienInvasion:
         pygame.display.flip()
 
     def _check_button_clicked(self):
+        '''
+        checks if the play button has been pressed
+        '''
         mouse_pos = pygame.mouse.get_pos()
         if self.play_button.check_clicked(mouse_pos):
             self.restart_game()
